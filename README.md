@@ -1,6 +1,5 @@
 # MSc
-
-  COPYRIGHT 2013 IWC Group & STMicroelectronics
+  ******************************************************************
   * @file    readme.txt 
   * @author  Mengjia Ding
   * @version V1.0.0
