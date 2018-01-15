@@ -11,15 +11,15 @@ int main(void) {
 	//STM32f4_Discovery_Debug_Init();
 	//USART6_Config();
 	STM32f4_Discovery_LCD_Init();
-// 	 	USART_SendData(USART6,0x42);
-// 	while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) != SET);
-   //while(1 != OV7670_Init());
+	//USART_SendData(USART6,0x42);
+	//while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) != SET);
+   	//while(1 != OV7670_Init());
 	OV7670_Init();
-// 		 	USART_SendData(USART2,0x43);
-// 	while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) != SET);
+	//USART_SendData(USART2,0x43);
+	//while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) != SET);
 
-//GPIO_SetBits(GPIOD, GPIO_Pin_13);
-   Key_Init();
+	//GPIO_SetBits(GPIOD, GPIO_Pin_13);
+   	Key_Init();
 
 	//NVIC_Configuration();
 	
@@ -28,15 +28,14 @@ int main(void) {
 	//OV7670_HW(184,11,40,492);
 	//LCD_Clear(Blue);
 	//LCD_WriteReg(SSD2119_ENTRY_MODE_REG, 0x6810);
-LCD_SetDisplayWindow(0, 0, 320, 240);
-   LCD_WriteRAM_Prepare();
+	LCD_SetDisplayWindow(0, 0, 320, 240);
+   	LCD_WriteRAM_Prepare();
 	Cam_Start();
 	//USART_SendData(USART2,DCMI->DR);
 	//while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) != SET);
 	
-// ret = f_mount(0, &fys);
-// if(ret == FR_OK)
-// {
+	//ret = f_mount(0, &fys);
+	//if(ret == FR_OK){
 // 	USART_SendData(USART6,0x44);
 // }
 // else
