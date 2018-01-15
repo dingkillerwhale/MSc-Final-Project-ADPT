@@ -27,8 +27,7 @@ static uint8_t bmp_header[54]={
 };
 
 
-void Save_Frame(void)
-{	
+void Save_Frame(void){	
 
   int32_t  i = 0;
   int32_t  j = 0;
@@ -36,130 +35,86 @@ void Save_Frame(void)
   uint32_t bw = 0;
 
 	pic_counter = get_pic_count();
-
-   /* USART1 config */
-	//USART1_Config();
-
-	/* Interrupt Config */
-  //NVIC_Config();
-
- //	printf("\r\n 这是一个MicroSD卡文件系统实验(FATFS R0.09)\n");
-
-//	printf ( "\r\n disk_initialize starting......\n " );
-
 	f_mount(0,&fs);		   
-  
-	sprintf(file_str, "0:/Demo%d.bmp",pic_counter);
+  	sprintf(file_str, "0:/Demo%d.bmp",pic_counter);
+	f_open(&fileW,file_str,FA_CREATE_NEW | FA_WRITE); 
+	f_write(&fileW, bmp_header, sizeof(bmp_header), &bw); 
+ 
+	for (j = 0; j < 240; j++){
+    		for(i=0;i<320;i++){ 
+     			data_temp = LCD_ReadRAM();;
+      			R = (data_temp>>8)&0xF8;
+      			G = (data_temp>>3)&0xFC;
+      			B = (data_temp<<3)&0xF8;
+      			image_buf[i*3+2] = R;
+      			image_buf[i*3+1] = G;
+      			image_buf[i*3+0] = B;
+    		}
+    		f_write(&fileW, image_buf, 960, &bw);
+  	}
 	
-	f_open(&fileW,file_str,FA_CREATE_NEW | FA_WRITE);
-	 
-// 	if ( res == FR_OK )
-//  	 { 
-
-		f_write(&fileW, bmp_header, sizeof(bmp_header), &bw); 
-  for (j = 0; j < 240; j++) {
-    for(i=0;i<320;i++) { 
-      data_temp = LCD_ReadRAM();;
-      R = (data_temp>>8)&0xF8;
-      G = (data_temp>>3)&0xFC;
-      B = (data_temp<<3)&0xF8;
-      image_buf[i*3+2] = R;
-      image_buf[i*3+1] = G;
-      image_buf[i*3+0] = B;
-    }
-    f_write(&fileW, image_buf, 960, &bw);
-  }
-// 	  printf( "\r\n 文件创建成功 \n" );    
-//       /*关闭文件 */
-   		 f_close(&fileW); 
+   	f_close(&fileW); 
 	
 	    f_mount(0, NULL);
        pic_counter++;  
 	     set_pic_count();
-//   	}
-//    else if ( res == FR_EXIST )
-//  	 {
-// 		printf( "\r\n 文件已经存在 \n" );
-//  	 }
-
-   /*---------------- 将刚刚新建的文件里面的内容打印到超级终端 -----------------------*/
-  /* 以只读的方式打开刚刚创建的文件 */
-// 	res = f_open(&fdst, "0:/Demo.TXT", FA_OPEN_EXISTING | FA_READ); /* 打开文件 */		
-// 	br = 1;
-// 	a = 0;	
-//   for (;;) 
-// 	{
-// 		for ( a=0; a<512; a++ ) 	                          /* 清缓冲区 */
-// 			buffer[a]=0;
-// 			 
-//   	res = f_read( &fdst, buffer, sizeof(buffer), &br ); /* 将文件里面的内容读到缓冲区 */
-// 		printf("\r\n %s ", buffer);						
-//   	if (res || br == 0) break;                          /* 错误或者到了文件尾 */        	    	
-//   }
-// 	f_close(&fdst);	                                      /* 关闭打开的文件 */	
-
- 	 
-//   while (1)
-//   {}
-}
-
 	  
 /******************* (C) COPYRIGHT 2012 WildFire Team *****END OF FILE************/
 
 
-static int32_t set_pic_count(void)
-{
- int32_t ret = -1;
-  uint32_t bw = 0;
-  FIL file;		
+static int32_t set_pic_count(void){
+	int32_t ret = -1;
+  	uint32_t bw = 0;
+  	FIL file;		
 
-  /* mount the filesys */
-  if (f_mount(0, &fs) != FR_OK) {
-    return -1;
-  }
+ 	/* mount the filesys */
+  	if (f_mount(0, &fs) != FR_OK) {
+    		return -1;
+  	}
 
-  ret = f_open(&file, "counter.dat", FA_OPEN_EXISTING | FA_WRITE);
-  if (ret == FR_OK) {
-    ret = f_write(&file, &pic_counter, sizeof(uint32_t), &bw);
-    f_close(&file);
-    f_mount(0, NULL);
-    return pic_counter;
-  } else {
-    f_close(&file);
-    f_mount(0, NULL);
-    return -1;
-  }
+  	ret = f_open(&file, "counter.dat", FA_OPEN_EXISTING | FA_WRITE);
+  	if (ret == FR_OK) {
+   		ret = f_write(&file, &pic_counter, sizeof(uint32_t), &bw);
+    		f_close(&file);
+    		f_mount(0, NULL);
+    		return pic_counter;
+  	} 
+	else{
+    		f_close(&file);
+    		f_mount(0, NULL);
+   	 	return -1;
+  	}
 
 }
 
-static int32_t get_pic_count(void)
-{
-  int32_t ret = -1;
-  uint32_t bw = 0;
-  FIL file;		
+static int32_t get_pic_count(void){
+	int32_t ret = -1;
+  	uint32_t bw = 0;
+  	FIL file;		
 
-  /* mount the filesys */
-  f_mount(0, &fs);
-
-  ret = f_open(&file, "counter.dat", FA_OPEN_EXISTING | FA_READ);
-  if (ret != FR_OK) {
-    f_close(&file);
-    ret = f_open(&file,"counter.dat", FA_CREATE_ALWAYS | FA_WRITE);
-    if (ret == FR_OK) {
-      pic_counter = 0;
-      ret = f_write(&file, &pic_counter, sizeof(uint32_t), &bw);
-      f_close(&file);
-      f_mount(0, NULL);
-      return pic_counter;
-    } else {
-      f_close(&file);
-      f_mount(0, NULL);
-      return -1;
-    }
-  } else {
-    ret = f_read(&file, &pic_counter, sizeof(uint32_t), &bw);
-    f_close(&file);
-    f_mount(0, NULL);
-    return pic_counter;
-  }
+  	/* mount the filesys */
+  	f_mount(0, &fs);
+ 	ret = f_open(&file, "counter.dat", FA_OPEN_EXISTING | FA_READ);
+  	if (ret != FR_OK) {
+    		f_close(&file);
+    		ret = f_open(&file,"counter.dat", FA_CREATE_ALWAYS | FA_WRITE);
+    		if (ret == FR_OK) {
+      			pic_counter = 0;
+      			ret = f_write(&file, &pic_counter, sizeof(uint32_t), &bw);
+      			f_close(&file);
+      			f_mount(0, NULL);
+      			return pic_counter;
+    		}
+		else{
+      			f_close(&file);
+      			f_mount(0, NULL);
+      			return -1;
+    		}
+  	} 
+	else{
+    		ret = f_read(&file, &pic_counter, sizeof(uint32_t), &bw);
+    		f_close(&file);
+    		f_mount(0, NULL);
+    		return pic_counter;
+  	}
 }
