@@ -74,7 +74,7 @@
 
 
 #define IS_FUNCTION_MODE(MODE)   (((MODE) == F_MODE1)  || \
-                               ((MODE) == F_MODE2))	
+                                 ((MODE) == F_MODE2))	
 
 
 
