@@ -31,53 +31,11 @@ int main(void) {
 	LCD_SetDisplayWindow(0, 0, 320, 240);
    	LCD_WriteRAM_Prepare();
 	Cam_Start();
-	//USART_SendData(USART2,DCMI->DR);
-	//while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) != SET);
-	
-	//ret = f_mount(0, &fys);
-	//if(ret == FR_OK){
-// 	USART_SendData(USART6,0x44);
-// }
-// else
-// {
-// 	USART_SendData(USART6,0x45);
-// }
-// ret=f_open(&f, "a.bmp", FA_WRITE | FA_CREATE_ALWAYS);
-// if(ret == FR_OK)
-// {
-// 	USART_SendData(USART6,0x46);
-// }
-// else
-// {
-// 	USART_SendData(USART6,0x47);
-// }
-	while(1)
-	{
-		if(KeyFlag == 0)
-				{
-					//OV7670_Init();
-    	DCMI_Cmd(ENABLE);
+
+	while(1){
+		if(KeyFlag == 0){  //OV7670_Init();
+    			DCMI_Cmd(ENABLE);
 			DCMI_CaptureCmd(ENABLE);
-    }
-// 		if(KeyFlag == 2) {
-// 			    init_picture_count();
-// // 		SD_Init(); 
-// 			
-// 			 	USART_SendData(USART6,0x44);
-// 			delay(10);
-// 	 			//Save_Frame(); 
-// 			Capture_Image_TO_Bmp();
-// 			//KeyFlag = 2;
-// 			while(1);
-//      }
-// 	if(KeyFlag ==3) {
-// 		OV7670_Init();
-// 	}
-}
-// 		
-		
-		//OV_DCMI();
-		//USART_SendData(USART2,DCMI->DR);
-  }
+	}
 	
 
