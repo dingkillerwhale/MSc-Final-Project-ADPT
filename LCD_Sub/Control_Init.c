@@ -87,7 +87,7 @@ void Control_Exit_Init (void) {
 	/* Config GPIOE */	
 	GPIO_InitStructure.GPIO_Pin = (GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_13 | GPIO_Pin_3);
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+ 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	
 	GPIO_Init(GPIOE, &GPIO_InitStructure);
 	
