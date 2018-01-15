@@ -17,7 +17,7 @@ LCD Display Codes
 @par Local Proejct Description
 
 This sub-project is applied for detection. There are four sub-folders 
-and a project file. This project adopts STM32F4 official library.
+and a project file. This project uses STM32F4 official library.
 
 "\Automatic Detect People Tchnology\Detect\StartUp" folder and 
 "\Automatic Detect People Tchnology\Detect\CMSIS" folder contain STM32F4 
