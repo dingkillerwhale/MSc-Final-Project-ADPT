@@ -1,17 +1,12 @@
 # MSc
-/**
-  @page Automatic Detect People Technology
-  
-  @verbatim
-  *********** Portions COPYRIGHT 2013 IWC Group & STMicroelectronics ***********
+
+  *** Portions COPYRIGHT 2013 IWC Group & STMicroelectronics ***
   * @file    readme.txt 
   * @author  Mengjia Ding
   * @version V1.0.0
   * @date    09-September-2013
   * @brief   Individual part of the Automatic Detect People Technology Project
-  ******************************************************************************
-   @endverbatim
-  */
+  ******************************************************************
 
 @par System Description
 
@@ -20,5 +15,5 @@ additional modules are serveing for routeing. The entrance can detect the signal
 
 If the number of people reached the limit, it would stop to count. That would trigger the audio alarm to notice the queueing people to wait out of the entrance. 
 
-/********* (C) COPYRIGHT 2013 IWC Group & STMicroelectronics *****END OF FILE*********/
+*** (C) COPYRIGHT 2013 IWC Group & STMicroelectronics ***
  
