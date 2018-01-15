@@ -43,7 +43,7 @@
 #define IS_CONTROL_MODE(MODE) (((MODE) == DISOFF)    || \
                                ((MODE) == DISON)     || \
                                ((MODE) == DISBLINK)  || \
-															 ((MODE) == DISCURSOR) || \
+			       ((MODE) == DISCURSOR) || \
                                ((MODE) == DISCURSORBLINK))			
 
 /*********************************************************************************
@@ -60,7 +60,7 @@
 
 #define IS_SHIFT_MODE(MODE)   (((MODE) == CURSORLEFT)  || \
                                ((MODE) == CURSORRIGHT) || \
-															 ((MODE) == DISPLAYLFET) || \
+			       ((MODE) == DISPLAYLFET) || \
                                ((MODE) == DISPLAYRIGHT))	
 															 
 /*********************************************************************************
